@@ -28,6 +28,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--sans); color: var(--ink); background: var(--cream); line-height: 1.6; -webkit-font-smoothing: antialiased; }
     img { max-width: 100%; display: block; }
+    [hidden] { display: none !important; }
     a { color: inherit; }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
     .eyebrow { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 500; display: inline-flex; align-items: center; gap: 12px; }
@@ -110,7 +111,7 @@
     .toggle button.on .save { color: var(--gold-soft); }
     .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
     .plan { background: var(--cream); border: 1px solid var(--line); border-radius: 24px; padding: 34px 30px; display: flex; flex-direction: column; position: relative; }
-    .plan.featured { background: var(--green); color: var(--cream); border-color: var(--green); transform: translateY(-12px); box-shadow: 0 30px 60px -30px rgba(18,56,44,.6); }
+    .plan.featured { background: var(--green); color: var(--cream); border-color: var(--green); transform: scale(1.04); z-index: 1; box-shadow: 0 30px 60px -30px rgba(18,56,44,.6); }
     .plan.featured h3, .plan.featured .price { color: var(--cream); }
     .plan .tag { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
     .plan h3 { margin: 10px 0 6px; font-size: 40px; }
@@ -128,6 +129,10 @@
     .plan li.plus { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: -2px; }
     .plan .btn { width: 100%; }
     .plan.featured .btn-primary { background: var(--gold); color: #fff; }
+    .upsell { margin-top: 14px; font-size: 13px; text-align: center; color: var(--muted); }
+    .upsell a { color: var(--gold); font-weight: 600; text-decoration: none; }
+    .upsell a:hover { text-decoration: underline; }
+    .plan.featured .why { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 12px; padding: 12px 14px; font-size: 13px; color: rgba(250,247,240,.85); margin-top: 18px; }
     .plan .form-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
     .plan.featured .form-note { color: rgba(250,247,240,.6); }
     .pricing-foot { text-align: center; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 40px; }
@@ -141,6 +146,12 @@
     .compare td:first-child, .compare th:first-child { text-align: left; }
     .compare .y { color: var(--green); font-weight: 600; }
     .compare .n { color: #c5c0b3; }
+    .compare th:last-child, .compare td:last-child { background: var(--cream-2); }
+    .compare th:last-child { border-radius: 12px 12px 0 0; }
+    .compare th:last-child small { display: block; font-size: 10px; color: var(--gold); letter-spacing: .12em; }
+    .modal-upsell { background: var(--cream); border: 1px dashed var(--gold); border-radius: 12px; padding: 12px 14px; font-size: 13px; margin: -8px 0 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .modal-upsell button { border: 0; background: var(--gold); color: #fff; font: 600 12px var(--sans); padding: 8px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+    .pay-actions { display: grid; gap: 10px; }
 
     /* TEAM */
     .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -248,10 +259,10 @@
     <div>
       <span class="eyebrow">Coaching online · Uomo &amp; Donna</span>
       <h1>Allenati con metodo.<br><em>Ovunque tu sia.</em></h1>
-      <p class="lead">Il metodo Armonia, ora anche online: una scheda costruita su di te, un trainer dedicato su WhatsApp e un percorso che rispetta il tuo corpo, i tuoi tempi e i tuoi obiettivi.</p>
+      <p class="lead">Il metodo Armonia di Mirandola, ora anche online: trasforma il tuo fisico in modo sostenibile, senza sacrifici inutili. Una scheda costruita su di te, un trainer dedicato su WhatsApp e, con Sinergia, anche la nutrizione.</p>
       <div class="hero-ctas">
-        <a href="#percorsi" class="btn btn-primary">Scegli il tuo percorso →</a>
-        <a href="#come-funziona" class="btn btn-ghost">Come funziona</a>
+        <a href="#percorsi" class="btn btn-primary">Scopri Sinergia →</a>
+        <a href="#percorsi" class="btn btn-ghost">Vedi i 3 percorsi</a>
       </div>
       <div class="trust">
         <div><strong>da 49€</strong>al mese</div>
@@ -306,8 +317,8 @@
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">I percorsi</span>
-      <h2>Scegli il livello di <em>supporto</em> giusto per te</h2>
-      <p class="lead">Stesso metodo, tre intensità di accompagnamento.</p>
+      <h2>Tre percorsi, <em>un solo metodo</em></h2>
+      <p class="lead">Allenamento, supporto e nutrizione: più sei seguito, più i risultati arrivano e restano. Per questo consigliamo Sinergia.</p>
       <div class="toggle" role="group" aria-label="Durata">
         <button type="button" data-dur="1" class="on">1 mese</button>
         <button type="button" data-dur="3">3 mesi <span class="save">risparmi fino al 33%</span></button>
@@ -327,13 +338,12 @@
           <li><span class="tick">✓</span>Consulenza diretta su WhatsApp</li>
           <li><span class="tick">✓</span>Questionario iniziale su obiettivo, limitazioni e preferenze</li>
         </ul>
-        <button class="btn btn-primary" data-open="essenza">Inizia con Essenza</button>
+        <button class="btn btn-ghost" data-open="essenza">Inizia con Essenza</button>
         <p class="form-note">Prima del pagamento compili un breve questionario</p>
       </article>
 
       <!-- EVOLUZIONE -->
-      <article class="plan featured" data-plan="evoluzione">
-        <span class="badge">Il più scelto</span>
+      <article class="plan" data-plan="evoluzione">
         <span class="tag">02 · Evoluzione</span>
         <h3>Evoluzione</h3>
         <p class="desc">Per chi vuole un trainer accanto ogni settimana e risultati più rapidi.</p>
@@ -345,24 +355,25 @@
           <li><span class="tick">✓</span>Check settimanali dei progressi</li>
           <li><span class="tick">✓</span>Scheda aggiornata in base ai check</li>
         </ul>
-        <button class="btn btn-primary" data-open="evoluzione">Scegli Evoluzione</button>
-        <p class="form-note">Questionario + videochiamata di partenza</p>
+        <button class="btn btn-ghost" data-open="evoluzione">Scegli Evoluzione</button>
+        <p class="upsell">Con soli 50€ in più hai anche la nutrizione. <a href="#" data-open="sinergia">Passa a Sinergia →</a></p>
       </article>
 
       <!-- SINERGIA -->
-      <article class="plan" data-plan="sinergia">
-        <span class="tag">03 · Completo</span>
+      <article class="plan featured" data-plan="sinergia">
+        <span class="badge">★ Consigliato</span>
+        <span class="tag">03 · Il percorso completo</span>
         <h3>Sinergia</h3>
-        <p class="desc">Il percorso integrale: allenamento e alimentazione che lavorano insieme.</p>
+        <p class="desc">Allenamento e alimentazione che lavorano insieme. Il modo più rapido e duraturo per arrivare al tuo obiettivo.</p>
         <div class="price" data-p1="199" data-p3="399">199€ <span>/ 1 mese</span></div>
         <div class="price-note" data-n3="133€ al mese · risparmi 198€"></div>
         <ul>
           <li class="plus">Tutto di Evoluzione, più:</li>
-          <li><span class="tick">✓</span>Videochiamata con Caterina, nutrizione</li>
+          <li><span class="tick">✓</span>Videochiamata con Caterina, dietista</li>
           <li><span class="tick">✓</span>Allenamento e alimentazione in sinergia</li>
         </ul>
-        <button class="btn btn-primary" data-open="sinergia">Scegli Sinergia</button>
-        <p class="form-note">Questionario + videochiamate di partenza</p>
+        <button class="btn btn-primary" data-open="sinergia">Scegli Sinergia →</button>
+        <div class="why">Perché lo consigliamo: l'allenamento da solo è metà del lavoro. Con trainer e dietista allineati, ogni settimana conta il doppio.</div>
       </article>
     </div>
 
@@ -370,13 +381,13 @@
 
     <div class="compare">
       <table>
-        <thead><tr><th>Cosa include</th><th>Essenza</th><th>Evoluzione</th><th>Sinergia</th></tr></thead>
+        <thead><tr><th>Cosa include</th><th>Essenza</th><th>Evoluzione</th><th><small>Consigliato</small>Sinergia</th></tr></thead>
         <tbody>
           <tr><td>Scheda personalizzata in app</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
           <tr><td>Consulenza su WhatsApp</td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
           <tr><td>Videochiamata iniziale con il trainer</td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
           <tr><td>Check settimanali</td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
-          <tr><td>Videochiamata con Caterina</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
+          <tr><td>Videochiamata con Caterina (dietista)</td><td class="n">—</td><td class="n">—</td><td class="y">✓</td></tr>
           <tr><td><b>1 mese</b></td><td>49€</td><td>149€</td><td>199€</td></tr>
           <tr><td><b>3 mesi</b></td><td>99€</td><td>299€</td><td>399€</td></tr>
         </tbody>
@@ -433,10 +444,10 @@
       <div>
         <span class="eyebrow">Nuova sede</span>
         <h2>Preferisci allenarti <em>in studio?</em></h2>
-        <p>Armonia ti aspetta anche dal vivo, nella nuova sede. Prenota la tua sessione in pochi click su Reservio.</p>
+        <p>Armonia ti aspetta anche dal vivo, nella nuova sede di Mirandola: personal training, small group Armonia Core Group (da 2 a 5 persone) e consulenza nutrizionale. Prenota in pochi click su Reservio.</p>
       </div>
       <div class="addr">
-        <strong>Armonia Studio</strong>
+        <strong>Armonia Mirandola</strong>
         <!-- TODO: inserire indirizzo della nuova sede -->
         <span data-cfg="studioAddress">Via Esempio 1, Città</span>
         <a class="btn btn-gold" data-cfg-href="reservioUrl" href="#" target="_blank" rel="noopener">Prenota su Reservio →</a>
@@ -468,8 +479,8 @@
   <div class="wrap">
     <span class="eyebrow">Il primo passo</span>
     <h2>Il tuo equilibrio inizia <em>con una scelta</em></h2>
-    <p class="lead">Scegli il percorso, raccontaci di te e ricevi un programma pensato solo per te.</p>
-    <a href="#percorsi" class="btn btn-primary">Scegli il tuo percorso →</a>
+    <p class="lead">Scegli il percorso, raccontaci di te e ricevi un programma pensato solo per te. Se vuoi il risultato completo, parti da Sinergia.</p>
+    <div class="hero-ctas" style="justify-content:center"><button class="btn btn-primary" data-open="sinergia">Inizia con Sinergia →</button><a href="#percorsi" class="btn btn-ghost">Confronta i percorsi</a></div>
   </div>
 </section>
 
@@ -480,7 +491,7 @@
   </div>
 </footer>
 
-<div class="sticky-cta" id="sticky"><a href="#percorsi" class="btn btn-primary">Scegli il tuo percorso · da 49€</a></div>
+<div class="sticky-cta" id="sticky"><a href="#percorsi" class="btn btn-primary">Scopri Sinergia · il percorso completo</a></div>
 
 <!-- ===================== MODALE PRENOTAZIONE ===================== -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
@@ -500,6 +511,8 @@
           <button type="button" data-dur="3">3 mesi</button>
         </div>
       </div>
+
+      <div class="modal-upsell" id="modal-upsell"><span>Vuoi anche la nutrizione con Caterina? <b>Sinergia</b> è il percorso consigliato.</span><button type="button" id="to-sinergia">Passa a Sinergia</button></div>
 
       <div class="essenza-box" id="essenza-box">Con Essenza non c'è una videochiamata iniziale: queste risposte sono la base della tua scheda. Più sei preciso, più sarà su misura.</div>
 
@@ -545,11 +558,14 @@
       <p class="sub">Grazie <span id="p-name"></span>! Ultimo passo: completa il pagamento per attivare <b id="p-plan"></b>.</p>
       <div class="summary"><div><span style="font-size:12px;color:var(--muted)">Totale</span><br><b id="p-total"></b></div><span style="font-size:12px;color:var(--muted)">IVA inclusa · pagamento unico</span></div>
       <ul class="pay-list">
-        <li><span class="tick">1</span>Paghi in modo sicuro con carta, Apple Pay o Google Pay</li>
-        <li><span class="tick">2</span>Ti scriviamo su WhatsApp entro 24h lavorative</li>
+        <li><span class="tick">1</span>Completi il pagamento sicuro</li>
+        <li><span class="tick">2</span>Prenoti il tuo avvio su Reservio</li>
         <li><span class="tick">3</span><span id="p-next">Ricevi la tua scheda personalizzata in app</span></li>
       </ul>
-      <a class="btn btn-primary" id="pay-btn" href="#" style="width:100%">Vai al pagamento sicuro →</a>
+      <div class="pay-actions">
+        <a class="btn btn-primary" id="pay-btn" href="#" target="_blank" rel="noopener">1 · Vai al pagamento sicuro →</a>
+        <a class="btn btn-ghost" id="book-btn" href="#" target="_blank" rel="noopener">2 · Prenota su Reservio →</a>
+      </div>
       <p class="muted-small">Hai dubbi? <a href="#" data-cfg-href="whatsappUrl" target="_blank" rel="noopener">Scrivici su WhatsApp</a></p>
     </div>
   </div>
@@ -569,16 +585,23 @@ const CONFIG = {
     evoluzione: { 1: "https://buy.stripe.com/EVOLUZIONE_1M", 3: "https://buy.stripe.com/EVOLUZIONE_3M" },
     sinergia:   { 1: "https://buy.stripe.com/SINERGIA_1M",   3: "https://buy.stripe.com/SINERGIA_3M" }
   },
+  // Lasciare paymentLinks vuoto ({}) se il pagamento avviene direttamente su Reservio
   reservioUrl: "https://RESERVIO_LINK_NUOVA_SEDE.reservio.com",
-  studioAddress: "Indirizzo nuova sede — da inserire",
+  // Link Reservio a cui porta il tasto "Prenota" dopo il questionario (per percorso)
+  reservioBooking: {
+    essenza:    "https://RESERVIO_LINK_NUOVA_SEDE.reservio.com",
+    evoluzione: "https://RESERVIO_LINK_NUOVA_SEDE.reservio.com",
+    sinergia:   "https://RESERVIO_LINK_NUOVA_SEDE.reservio.com"
+  },
+  studioAddress: "Mirandola (MO) — indirizzo da inserire",
   whatsappUrl: "https://wa.me/39XXXXXXXXXX",
   privacyUrl: "https://alelosciale.it/privacy"
 };
 
 const PLANS = {
   essenza:    { name: "Essenza",    p: { 1: 49,  3: 99  }, next: "Ricevi la tua scheda personalizzata in app" },
-  evoluzione: { name: "Evoluzione", p: { 1: 149, 3: 299 }, next: "Fissiamo la videochiamata iniziale e ricevi la scheda" },
-  sinergia:   { name: "Sinergia",   p: { 1: 199, 3: 399 }, next: "Fissiamo le videochiamate con il trainer e con Caterina" }
+  evoluzione: { name: "Evoluzione", p: { 1: 149, 3: 299 }, next: "Fai la videochiamata iniziale e ricevi la scheda" },
+  sinergia:   { name: "Sinergia",   p: { 1: 199, 3: 399 }, next: "Videochiamate con il trainer e con Caterina, poi scheda e piano" }
 };
 
 document.getElementById("y").textContent = new Date().getFullYear();
@@ -622,6 +645,7 @@ function openModal(key) {
   document.querySelectorAll(".req-mark").forEach(s => s.textContent = isEssenza ? "*" : "(facoltativo, ne parliamo in videochiamata)");
   document.querySelectorAll(".req-mark").forEach(s => s.className = "req-mark" + (isEssenza ? "" : " hint"));
   document.getElementById("essenza-box").hidden = !isEssenza;
+  document.getElementById("modal-upsell").hidden = key === "sinergia";
   form.hidden = false; payStep.hidden = true;
   bars[1].classList.remove("on");
   document.getElementById("err").style.display = "none";
@@ -632,7 +656,15 @@ function openModal(key) {
 }
 function closeModal() { modal.classList.remove("open"); document.body.style.overflow = ""; }
 
-document.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", () => openModal(b.dataset.open)));
+document.querySelectorAll("[data-open]").forEach(b => b.addEventListener("click", e => { e.preventDefault(); openModal(b.dataset.open); }));
+document.getElementById("to-sinergia").addEventListener("click", () => {
+  plan = "sinergia";
+  ["f-inf", "f-no"].forEach(id => document.getElementById(id).required = false);
+  document.querySelectorAll(".req-mark").forEach(s => { s.textContent = "(facoltativo, ne parliamo in videochiamata)"; s.className = "req-mark hint"; });
+  document.getElementById("essenza-box").hidden = true;
+  document.getElementById("modal-upsell").hidden = true;
+  updateSummary();
+});
 modal.addEventListener("click", e => { if (e.target === modal || e.target.hasAttribute("data-close")) closeModal(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
 
@@ -675,8 +707,15 @@ function showPayment() {
   document.getElementById("p-plan").textContent = P.name + " · " + (dur === 1 ? "1 mese" : "3 mesi");
   document.getElementById("p-total").textContent = P.p[dur] + "€";
   document.getElementById("p-next").textContent = P.next;
-  const link = CONFIG.paymentLinks[plan][dur];
-  document.getElementById("pay-btn").href = link + (link.includes("?") ? "&" : "?") + "prefilled_email=" + encodeURIComponent(email);
+  const link = (CONFIG.paymentLinks[plan] || {})[dur];
+  const payBtn = document.getElementById("pay-btn");
+  const bookBtn = document.getElementById("book-btn");
+  payBtn.hidden = !link;
+  if (link) payBtn.href = link + (link.includes("?") ? "&" : "?") + "prefilled_email=" + encodeURIComponent(email);
+  bookBtn.href = CONFIG.reservioBooking[plan] || CONFIG.reservioUrl;
+  // Senza link di pagamento, Reservio diventa l'unico passo (pagamento incluso)
+  bookBtn.className = "btn " + (link ? "btn-ghost" : "btn-primary");
+  bookBtn.textContent = link ? "2 · Prenota su Reservio →" : "Prenota e paga su Reservio →";
   form.hidden = true; payStep.hidden = false;
   bars[1].classList.add("on");
   modal.querySelector(".sheet").scrollTop = 0;
