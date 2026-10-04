@@ -249,6 +249,11 @@
     .essenza-box { background: var(--cream); border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0; padding: 14px 16px; margin-bottom: 20px; font-size: 13px; color: var(--ink); }
     .err { color: #a3412f; font-size: 13px; margin-bottom: 12px; display: none; }
     .done-ico { width: 64px; height: 64px; border-radius: 50%; background: var(--cream-2); color: var(--green); display: grid; place-items: center; font-size: 28px; margin-bottom: 18px; }
+    .code-box { background: var(--cream); border: 1px dashed var(--gold); border-radius: 14px; padding: 16px 18px; margin: 4px 0 18px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; }
+    .code-box span { font-size: 12px; color: var(--muted); grid-column: 1 / -1; }
+    .code-box b { font: 600 26px var(--sans); letter-spacing: .08em; color: var(--green); }
+    .code-box button { border: 1px solid var(--green); background: transparent; color: var(--green); font: 600 12px var(--sans); padding: 8px 12px; border-radius: 999px; cursor: pointer; }
+    .code-box small { grid-column: 1 / -1; font-size: 12px; color: var(--muted); margin-top: 4px; }
     .pay-list { list-style: none; display: grid; gap: 10px; margin: 18px 0 24px; font-size: 14px; }
     .pay-list li { display: flex; gap: 10px; }
     .muted-small { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
@@ -429,8 +434,7 @@
     </div>
     <div class="team">
       <div class="person">
-        <!-- Sostituire con <img src="img/alessandro.jpg" alt="Alessandro"> -->
-        <div class="ph">A</div>
+        <div class="ph"><img src="img/ale.jpg" alt="Ale Losciale"></div>
         <div class="body">
           <h3>Ale Losciale</h3>
           <div class="role">Founder · Personal trainer · Percorsi uomo</div>
@@ -438,8 +442,7 @@
         </div>
       </div>
       <div class="person">
-        <!-- Sostituire con <img src="img/valentina.jpg" alt="Valentina"> -->
-        <div class="ph">V</div>
+        <div class="ph"><img src="img/valentina.jpg" alt="Valentina" style="object-position:50% 30%"></div>
         <div class="body">
           <h3>Valentina</h3>
           <div class="role">Personal trainer · Percorsi donna</div>
@@ -447,8 +450,7 @@
         </div>
       </div>
       <div class="person">
-        <!-- Sostituire con <img src="img/caterina.jpg" alt="Caterina"> -->
-        <div class="ph">C</div>
+        <div class="ph"><img src="img/caterina.jpg" alt="Caterina" style="object-position:60% 30%"></div>
         <div class="body">
           <h3>Caterina</h3>
           <div class="role">Dietista</div>
@@ -491,6 +493,7 @@
       <details><summary>Perché devo compilare un questionario prima di pagare?</summary><p>Perché la scheda è davvero su misura. Obiettivo, infortuni pregressi o limitazioni ed esercizi che non ami ci servono prima di costruirla: così il lavoro parte subito nella direzione giusta.</p></details>
       <details><summary>Ho un infortunio o una limitazione: posso partire?</summary><p>Sì, scrivilo nel questionario. Adattiamo esercizi e carichi alla tua situazione. In caso di condizioni mediche importanti ti chiederemo il via libera del tuo medico.</p></details>
       <details><summary>Mi alleno a casa, va bene lo stesso?</summary><p>Certo. Indica dove ti alleni e con quale attrezzatura: la scheda si costruisce su quello che hai a disposizione.</p></details>
+      <details><summary>Come avviene il pagamento?</summary><p>Dopo il questionario prenoti e paghi il percorso su Reservio, la piattaforma che usiamo anche per lo studio di Mirandola. Ricevi un codice da inserire nelle note: così colleghiamo subito il pagamento alle tue risposte.</p></details>
       <details><summary>C'è un rinnovo automatico?</summary><p>No. Pagamento unico, nessun abbonamento. Alla fine del percorso decidi tu se continuare.</p></details>
       <details><summary>Quanto tempo passa dal pagamento alla scheda?</summary><p>Ti contattiamo su WhatsApp entro 24 ore lavorative. Per Evoluzione e Sinergia fissiamo insieme la videochiamata di partenza.</p></details>
     </div>
@@ -525,7 +528,7 @@
     <!-- STEP 1: QUESTIONARIO -->
     <form id="step-form" novalidate>
       <h3 id="m-title">Raccontaci di te</h3>
-      <p class="sub">Ci serve per costruire la tua scheda. Il pagamento si sblocca dopo l'invio.</p>
+      <p class="sub">Ci serve per costruire la tua scheda. Dopo l'invio prenoti e paghi su Reservio.</p>
 
       <div class="summary">
         <div><span style="font-size:12px;color:var(--muted)">Percorso</span><br><b id="m-plan">Essenza</b> · <b id="m-price">49€</b></div>
@@ -566,30 +569,34 @@
       <input type="hidden" name="percorso" id="h-plan">
       <input type="hidden" name="durata" id="h-dur">
       <input type="hidden" name="prezzo" id="h-price">
+      <input type="hidden" name="codice" id="h-code">
+      <input type="text" name="sito_web" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
 
       <label class="check"><input type="checkbox" name="privacy" required> <span>Acconsento al trattamento dei dati, anche relativi alla salute, per la preparazione del mio programma (<a href="#" data-cfg-href="privacyUrl">privacy</a>). *</span></label>
 
       <p class="err" id="err">Compila tutti i campi obbligatori.</p>
-      <button class="btn btn-primary" type="submit" style="width:100%" id="submit-btn">Invia e procedi al pagamento →</button>
+      <button class="btn btn-primary" type="submit" style="width:100%" id="submit-btn">Invia e prosegui →</button>
       <p class="muted-small">Nessun addebito in questo passaggio.</p>
     </form>
 
-    <!-- STEP 2: PAGAMENTO -->
+    <!-- STEP 2: PRENOTAZIONE E PAGAMENTO SU RESERVIO -->
     <div id="step-pay" hidden>
       <div class="done-ico">✓</div>
       <h3>Questionario ricevuto</h3>
-      <p class="sub">Grazie <span id="p-name"></span>! Ultimo passo: completa il pagamento per attivare <b id="p-plan"></b>.</p>
-      <div class="summary"><div><span style="font-size:12px;color:var(--muted)">Totale</span><br><b id="p-total"></b></div><span style="font-size:12px;color:var(--muted)">IVA inclusa · pagamento unico</span></div>
+      <p class="sub">Grazie <span id="p-name"></span>! Ultimo passo: prenota e paga <b id="p-plan"></b> su Reservio.</p>
+      <div class="code-box">
+        <span>Il tuo codice questionario</span>
+        <b id="p-code">ARM-0000</b>
+        <button type="button" id="copy-code">Copia codice</button>
+        <small>Scrivilo nelle note della prenotazione su Reservio: così colleghiamo subito il pagamento alle tue risposte.</small>
+      </div>
       <ul class="pay-list">
-        <li><span class="tick">1</span>Completi il pagamento sicuro</li>
-        <li><span class="tick">2</span>Prenoti il tuo avvio su Reservio</li>
+        <li><span class="tick">1</span><span>Su Reservio scegli <b id="p-plan2"></b> (<b id="p-total"></b>)</span></li>
+        <li><span class="tick">2</span>Incolla il codice nelle note e completa il pagamento</li>
         <li><span class="tick">3</span><span id="p-next">Ricevi la tua scheda personalizzata in app</span></li>
       </ul>
-      <div class="pay-actions">
-        <a class="btn btn-primary" id="pay-btn" href="#" target="_blank" rel="noopener">1 · Vai al pagamento sicuro →</a>
-        <a class="btn btn-ghost" id="book-btn" href="#" target="_blank" rel="noopener">2 · Prenota su Reservio →</a>
-      </div>
-      <p class="muted-small">Hai dubbi? <a href="#" data-cfg-href="whatsappUrl" target="_blank" rel="noopener">Scrivici su WhatsApp</a></p>
+      <a class="btn btn-primary" id="book-btn" href="#" target="_blank" rel="noopener" style="width:100%">Prenota e paga su Reservio →</a>
+      <p class="muted-small">Ti scriviamo su WhatsApp entro 24h lavorative dal pagamento. Dubbi? <a href="#" data-cfg-href="whatsappUrl" target="_blank" rel="noopener">Scrivici</a></p>
     </div>
   </div>
 </div>
@@ -599,22 +606,17 @@
    CONFIGURAZIONE — sostituire i valori segnaposto
    ========================================================= */
 const CONFIG = {
-  // Endpoint che riceve il questionario (es. Formspree: https://formspree.io/f/XXXXXXX).
+  // URL della Web App Google (vedi google-apps-script/ISTRUZIONI.md).
+  // Le risposte finiscono in un Google Sheet e arriva un'email ad Armonia.
   // Se vuoto la pagina funziona in modalità demo e non invia nulla.
   formEndpoint: "",
-  // Link di pagamento (es. Stripe Payment Links) per percorso e durata
-  paymentLinks: {
-    essenza:    { 1: "https://buy.stripe.com/ESSENZA_1M",    3: "https://buy.stripe.com/ESSENZA_3M" },
-    evoluzione: { 1: "https://buy.stripe.com/EVOLUZIONE_1M", 3: "https://buy.stripe.com/EVOLUZIONE_3M" },
-    sinergia:   { 1: "https://buy.stripe.com/SINERGIA_1M",   3: "https://buy.stripe.com/SINERGIA_3M" }
-  },
-  // Lasciare paymentLinks vuoto ({}) se il pagamento avviene direttamente su Reservio
+  // Prenotazione e pagamento: per ora il Reservio generale di Armonia.
+  // Quando Ale crea la "sede" dei percorsi online, inserire qui i link dei singoli servizi.
   reservioUrl: "https://ale-losciale-personal-trainer.reservio.com/",
-  // Link Reservio a cui porta il tasto "Prenota" dopo il questionario (per percorso)
   reservioBooking: {
-    essenza:    "https://ale-losciale-personal-trainer.reservio.com/services",
-    evoluzione: "https://ale-losciale-personal-trainer.reservio.com/services",
-    sinergia:   "https://ale-losciale-personal-trainer.reservio.com/services"
+    essenza:    "https://ale-losciale-personal-trainer.reservio.com/",
+    evoluzione: "https://ale-losciale-personal-trainer.reservio.com/",
+    sinergia:   "https://ale-losciale-personal-trainer.reservio.com/"
   },
   studioAddress: "Via Circonvallazione, 4 – 41037 Mirandola (MO)",
   whatsappUrl: "https://wa.me/393520364190",
@@ -706,9 +708,10 @@ form.addEventListener("submit", async e => {
   const btn = document.getElementById("submit-btn");
   btn.disabled = true; btn.textContent = "Invio in corso…";
   try {
+    document.getElementById("h-code").value = makeCode();
     if (CONFIG.formEndpoint) {
-      const res = await fetch(CONFIG.formEndpoint, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
-      if (!res.ok) throw new Error("invio fallito");
+      // Google Apps Script non espone CORS: invio "no-cors", la risposta è opaca
+      await fetch(CONFIG.formEndpoint, { method: "POST", mode: "no-cors", body: new URLSearchParams(new FormData(form)) });
     } else {
       console.info("[demo] questionario:", Object.fromEntries(new FormData(form)));
     }
@@ -717,28 +720,37 @@ form.addEventListener("submit", async e => {
     err.textContent = "Invio non riuscito. Riprova o scrivici su WhatsApp.";
     err.style.display = "block";
   } finally {
-    btn.disabled = false; btn.textContent = "Invia e procedi al pagamento →";
+    btn.disabled = false; btn.textContent = "Invia e prosegui →";
   }
 });
 
 form.addEventListener("input", () => { if (form.checkValidity()) document.getElementById("err").style.display = "none"; });
 
+// Codice breve per collegare questionario e pagamento Reservio (senza caratteri ambigui)
+function makeCode() {
+  const c = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let out = "ARM-";
+  const rnd = crypto.getRandomValues(new Uint32Array(4));
+  for (const n of rnd) out += c[n % c.length];
+  return out;
+}
+
+document.getElementById("copy-code").addEventListener("click", async e => {
+  try { await navigator.clipboard.writeText(document.getElementById("p-code").textContent); e.target.textContent = "Copiato ✓"; }
+  catch (_) { e.target.textContent = "Selezionalo e copia"; }
+});
+
 function showPayment() {
   const P = PLANS[plan];
-  const email = document.getElementById("f-email").value;
+  const label = P.name + " · " + (dur === 1 ? "1 mese" : "3 mesi");
   document.getElementById("p-name").textContent = document.getElementById("f-nome").value.split(" ")[0];
-  document.getElementById("p-plan").textContent = P.name + " · " + (dur === 1 ? "1 mese" : "3 mesi");
+  document.getElementById("p-plan").textContent = label;
+  document.getElementById("p-plan2").textContent = label;
   document.getElementById("p-total").textContent = P.p[dur] + "€";
   document.getElementById("p-next").textContent = P.next;
-  const link = (CONFIG.paymentLinks[plan] || {})[dur];
-  const payBtn = document.getElementById("pay-btn");
-  const bookBtn = document.getElementById("book-btn");
-  payBtn.hidden = !link;
-  if (link) payBtn.href = link + (link.includes("?") ? "&" : "?") + "prefilled_email=" + encodeURIComponent(email);
-  bookBtn.href = CONFIG.reservioBooking[plan] || CONFIG.reservioUrl;
-  // Senza link di pagamento, Reservio diventa l'unico passo (pagamento incluso)
-  bookBtn.className = "btn " + (link ? "btn-ghost" : "btn-primary");
-  bookBtn.textContent = link ? "2 · Prenota su Reservio →" : "Prenota e paga su Reservio →";
+  document.getElementById("p-code").textContent = document.getElementById("h-code").value;
+  document.getElementById("copy-code").textContent = "Copia codice";
+  document.getElementById("book-btn").href = CONFIG.reservioBooking[plan] || CONFIG.reservioUrl;
   form.hidden = true; payStep.hidden = false;
   bars[1].classList.add("on");
   modal.querySelector(".sheet").scrollTop = 0;
