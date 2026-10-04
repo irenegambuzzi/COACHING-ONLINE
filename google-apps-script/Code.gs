@@ -27,6 +27,10 @@ const COLONNE = [
   ["Dettagli obiettivo", "obiettivo_dettagli"],
   ["Infortuni / limitazioni", "infortuni"],
   ["Esercizi non graditi", "esercizi_non_graditi"],
+  ["Privacy letta", "privacy"],
+  ["Consenso dati salute", "consenso_salute"],
+  ["Consenso marketing", "consenso_marketing"],
+  ["Versione informativa", "versione_privacy"],
   ["Note Armonia", null]
 ];
 
@@ -34,6 +38,9 @@ function doPost(e) {
   const d = (e && e.parameter) || {};
   // Campo trappola per i bot: se compilato ignoriamo l'invio
   if (d.sito_web) return risposta({ ok: true });
+  // Senza consensi obbligatori non salviamo nulla
+  if (d.privacy !== "si" || d.consenso_salute !== "si") return risposta({ ok: false });
+  d.consenso_marketing = d.consenso_marketing === "si" ? "si" : "no";
 
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
@@ -86,6 +93,7 @@ function inviaNotifica(d, riga) {
     voce("Prezzo", d.prezzo) + voce("Dove si allena", d.dove) + voce("Obiettivo", d.obiettivo) +
     voce("Dettagli obiettivo", d.obiettivo_dettagli) + voce("Infortuni / limitazioni", d.infortuni) +
     voce("Esercizi non graditi", d.esercizi_non_graditi) +
+    voce("Consenso marketing", d.consenso_marketing === "si" ? "Sì" : "No") +
     "</table>" +
     "<p style='margin-top:20px'><a href='" + url + "'>Apri il foglio dei questionari</a> (riga " + riga + ")</p></div>";
 

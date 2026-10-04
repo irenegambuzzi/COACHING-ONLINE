@@ -1,0 +1,23 @@
+/* Stile condiviso delle pagine Privacy e Cookie Policy */
+:root { --green: #23374C; --gold: #9A5E20; --cream: #F4EEE0; --paper: #FBF8F1; --line: #e2d8c2; --ink: #242424; --muted: #5f6368; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--ink); font: 16px/1.7 "Montserrat", system-ui, sans-serif; }
+header { border-bottom: 1px solid var(--line); background: var(--paper); }
+header .in, main, footer .in { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+header .in { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+header img { height: 26px; }
+header a { color: var(--green); font-size: 14px; }
+main { padding: 48px 20px 64px; }
+h1, h2 { font-family: "Lora", Georgia, serif; font-weight: 600; color: var(--gold); line-height: 1.2; }
+h1 { font-size: clamp(30px, 5vw, 42px); margin: 0 0 6px; }
+h2 { font-size: 22px; margin: 40px 0 10px; color: var(--green); }
+.upd { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+a { color: var(--gold); }
+.box { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--paper); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { background: var(--green); color: #fff; font-weight: 600; }
+.tw { overflow-x: auto; }
+ul { padding-left: 20px; }
+footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 13px; color: var(--muted); }
+button.link { background: none; border: 0; padding: 0; color: var(--gold); text-decoration: underline; font: inherit; cursor: pointer; }
