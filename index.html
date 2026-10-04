@@ -170,8 +170,8 @@
     /* TEAM */
     .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
     .person { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; }
-    .person .ph { aspect-ratio: 4/3; background: linear-gradient(160deg, var(--cream-2), var(--gold-soft)); display: grid; place-items: center; font-family: var(--serif); font-size: 84px; color: var(--green); font-style: italic; }
-    .person .ph img { width: 100%; height: 100%; object-fit: cover; }
+    .person .ph { position: relative; overflow: hidden; aspect-ratio: 4/5; background: linear-gradient(160deg, var(--cream-2), var(--gold-soft)); display: grid; place-items: center; font-family: var(--serif); font-size: 84px; color: var(--green); font-style: italic; }
+    .person .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
     .person .body { padding: 24px 26px 28px; }
     .person h3 { font-size: 30px; }
     .person .role { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin: 4px 0 12px; }
@@ -450,7 +450,7 @@
         </div>
       </div>
       <div class="person">
-        <div class="ph"><img src="img/caterina.jpg" alt="Caterina" style="object-position:60% 30%"></div>
+        <div class="ph"><img src="img/caterina.jpg" alt="Caterina" style="object-position:66% 50%"></div>
         <div class="body">
           <h3>Caterina</h3>
           <div class="role">Dietista</div>
